@@ -1,46 +1,43 @@
 from typing import Literal, assert_type
 
-from papyrust import Err, Ok, Result, is_err, is_ok
+from papyrust import Err, Ok, Result
 
 
-def check_is_ok_narrowing(result: Result[int, str]) -> None:
-    if is_ok(result):
-        assert_type(result, Ok[int])
-    else:
+def check_isinstance_narrowing(result: Result[int, str]) -> None:
+    if isinstance(result, Err):
         assert_type(result, Err[str])
+        return
+    assert_type(result, Ok[int])
 
 
-def check_is_err_narrowing(result: Result[int, str]) -> None:
-    if is_err(result):
-        assert_type(result, Err[str])
-    else:
-        assert_type(result, Ok[int])
+def test_ok_predicates() -> None:
+    result = Ok(1)
+
+    assert result.is_ok() is True
+    assert result.is_err() is False
 
 
-def test_is_ok_function() -> None:
-    assert is_ok(Ok(1)) is True
-    assert is_ok(Err("bad")) is False
+def test_err_predicates() -> None:
+    result = Err("bad")
+
+    assert result.is_ok() is False
+    assert result.is_err() is True
 
 
-def test_is_err_function() -> None:
-    assert is_err(Err("bad")) is True
-    assert is_err(Ok(1)) is False
-
-
-def test_narrowing_helpers_run() -> None:
-    check_is_ok_narrowing(Ok(1))
-    check_is_ok_narrowing(Err("bad"))
-    check_is_err_narrowing(Ok(1))
-    check_is_err_narrowing(Err("bad"))
-
-
-def test_variant_methods_have_literal_types() -> None:
+def test_predicates_have_literal_types() -> None:
     assert_type(Ok(1).is_ok(), Literal[True])
     assert_type(Ok(1).is_err(), Literal[False])
     assert_type(Err("bad").is_ok(), Literal[False])
     assert_type(Err("bad").is_err(), Literal[True])
 
-    assert Ok(1).is_ok() is True
-    assert Ok(1).is_err() is False
-    assert Err("bad").is_ok() is False
-    assert Err("bad").is_err() is True
+
+def test_predicates_on_a_result_union() -> None:
+    results: list[Result[int, str]] = [Ok(1), Err("bad"), Ok(2)]
+
+    assert [r.is_ok() for r in results] == [True, False, True]
+    assert sum(r.is_err() for r in results) == 1
+
+
+def test_isinstance_narrowing_runs() -> None:
+    check_isinstance_narrowing(Ok(1))
+    check_isinstance_narrowing(Err("bad"))
