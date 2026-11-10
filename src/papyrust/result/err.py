@@ -18,3 +18,6 @@ class Err[E]:
 
     def map_err[F](self, f: Callable[[E], F]) -> "Err[F]":
         return Err(f(self.error))
+
+    def unwrap_or[U](self, default: U) -> U:
+        return default

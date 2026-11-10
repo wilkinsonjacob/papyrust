@@ -18,3 +18,6 @@ class Ok[T]:
 
     def map_err(self, f: Callable[[Never], object]) -> "Ok[T]":
         return self
+
+    def unwrap_or(self, default: object) -> T:
+        return self.value
