@@ -21,6 +21,9 @@ class Err[E]:
     def map_err[F](self, f: Callable[[E], F]) -> "Err[F]":
         return Err(f(self.error))
 
+    def and_then(self, f: Callable[[Never], object]) -> "Err[E]":
+        return self
+
     def expect(self, msg: str) -> NoReturn:
         raise UnwrapError(f"{msg}: {self.error!r}")
 
