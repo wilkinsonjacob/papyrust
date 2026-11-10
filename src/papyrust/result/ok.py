@@ -19,6 +19,9 @@ class Ok[T]:
     def map_err(self, f: Callable[[Never], object]) -> "Ok[T]":
         return self
 
+    def expect(self, msg: str) -> T:
+        return self.value
+
     def unwrap(self) -> T:
         return self.value
 

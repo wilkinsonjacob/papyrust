@@ -21,6 +21,9 @@ class Err[E]:
     def map_err[F](self, f: Callable[[E], F]) -> "Err[F]":
         return Err(f(self.error))
 
+    def expect(self, msg: str) -> NoReturn:
+        raise UnwrapError(f"{msg}: {self.error!r}")
+
     def unwrap(self) -> NoReturn:
         raise UnwrapError(f"called `result.unwrap()` on an `Err` value: {self.error!r}")
 
