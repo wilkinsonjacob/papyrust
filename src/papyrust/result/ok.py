@@ -32,3 +32,6 @@ class Ok[T]:
 
     def unwrap_or(self, default: object) -> T:
         return self.value
+
+    def unwrap_or_else(self, f: Callable[[Never], object]) -> T:
+        return self.value

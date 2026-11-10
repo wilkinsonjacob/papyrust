@@ -32,3 +32,6 @@ class Err[E]:
 
     def unwrap_or[U](self, default: U) -> U:
         return default
+
+    def unwrap_or_else[U](self, f: Callable[[E], U]) -> U:
+        return f(self.error)
