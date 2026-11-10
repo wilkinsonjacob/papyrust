@@ -11,7 +11,23 @@ pythonpath = ["src"]
 testpaths = ["tests"]
 
 [dependency-groups]
-dev = ["pytest>=9.2.0"]
+dev = [
+    "commitizen>=4.19.3",
+    "pre-commit>=4.7.0",
+    "pytest>=9.2.0",
+    "ruff>=0.17.4",
+    "ty>=0.0.100",
+]
 
 [tool.ty.environment]
 root = ["./src"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.commitizen]
+name = "cz_conventional_commits"
+version_provider = "uv"
+tag_format = "v$version"
+update_changelog_on_bump = true
+major_version_zero = true
