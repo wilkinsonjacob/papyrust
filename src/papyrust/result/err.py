@@ -28,7 +28,7 @@ class Err[E]:
         raise UnwrapError(f"{msg}: {self.error!r}")
 
     def unwrap(self) -> NoReturn:
-        raise UnwrapError(f"called `result.unwrap()` on an `Err` value: {self.error!r}")
+        raise UnwrapError(f"called `Result.unwrap()` on an `Err` value: {self.error!r}")
 
     def unwrap_or[U](self, default: U) -> U:
         return default
