@@ -23,7 +23,9 @@ classifiers = [
     "Programming Language :: Python :: 3.15",
     "Typing :: Typed",
 ]
-dependencies = []
+dependencies = [
+    "typing-extensions>=4.12",
+]
 
 [project.urls]
 Homepage = "https://github.com/wilkinsonjacob/papyrust"
