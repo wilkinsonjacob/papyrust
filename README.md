@@ -12,8 +12,7 @@ pip install papyrust
 uv add papyrust
 ```
 
-Requires Python 3.12 or newer. The only runtime dependency is
-[`typing_extensions`](https://pypi.org/project/typing-extensions/).
+Requires Python 3.12 or newer.
 
 ## Development
 
